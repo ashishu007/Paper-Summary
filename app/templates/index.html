@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    /* Create two equal columns that floats next to each other */
+    .column {
+      float: left;
+      width: 25%;
+      padding: 10px;
+      /* height: 300px;  */
+      /* Should be removed. Only for demonstration */
+    }
+    
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="row">
+        <div class="column" style="background-color:white;">
+            <b>Papers with data added</b><br />
+            {% for each in c %}
+            {{ each }}<br />
+            {% endfor %}                
+        </div>
+        <div class="column" style="background-color:white;">
+            <b>Papers without data added</b><br />
+            {% for each in nc %}
+            {{ each }}<br />
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
