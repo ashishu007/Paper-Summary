@@ -1,0 +1,64 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Paper Summary App</title>
+    <h1>Hi, Ashish! Welcome to your reading database.</h1>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    /* Create two equal columns that floats next to each other */
+    .column {
+      float: left;
+      width: 25%;
+      padding: 10px;
+      /* height: 300px;  */
+      /* Should be removed. Only for demonstration */
+    }
+    
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="row">
+        <div class="column" style="background-color:white;">
+            <h3>Papers with data added</h3><br />
+            {% for each in c %}
+            <a href="{{ baseurl }}/show/{{ each }}">{{ each }}<br /></a>
+            {% endfor %}                
+        </div>
+        <div class="column" style="background-color:white;">
+            <h3>Papers without data added</h3><br />
+            {% for each in nc %}
+            <a href="{{ baseurl }}/add/{{ each }}">{{ each }}<br /></a>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html> -->
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="row">
+    <div class="column" style="background-color:white;">
+        <h3>Papers with summary added</h3><br />
+        {% for each in c %}
+        <a href="{{ baseurl }}/view/{{ each }}">{{ each }}<br /></a>
+        {% endfor %}                
+    </div>
+    <div class="column" style="background-color:white;">
+        <h3>Papers without summary added</h3><br />
+        {% for each in nc %}
+        <a href="{{ baseurl }}/form/{{ each }}">{{ each }}<br /></a>
+        {% endfor %}
+    </div>
+  </div>
+{% endblock %}
