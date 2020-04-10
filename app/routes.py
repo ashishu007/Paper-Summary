@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template, Flask, jsonify, request
-from app.check_json import create_json
+from app.utilities import create_json, replace_data
 import os, json
 
 @app.route('/')
@@ -45,7 +45,7 @@ def show_data(filename):
         if i["paper_name"] == filename:
             asked = i
 
-    return jsonify(asked)
+    return render_template("show_data.html", data=asked)
 
 @app.route('/add', methods=['POST', 'GET'])
 def add_data():
@@ -53,23 +53,26 @@ def add_data():
         result = request.form
         r = result.to_dict(flat=False)
         print(result)
+        print(r)
 
     ftrs = {
-        "paper_name": r["paper_name"],
-        "paper_category": r["paper_category"],
-        "task_definition": r["task_definition"],
-        "dataset_used": r["dataset_used"],
-        "method_definition": r["method_definition"],
-        "brief_summary": r["brief_summary"]
+        "paper_name": r["paper_name"][0],
+        "paper_category": r["paper_category"][0],
+        "task_definition": r["task_definition"][0],
+        "dataset_used": r["dataset_used"][0],
+        "method_definition": r["method_definition"][0],
+        "brief_summary": r["brief_summary"][0]
     }
 
-    with open('./app/output/datat.json') as json_file:
+    with open('./app/output/data.json') as json_file:
         data = json.load(json_file)
 
-    added_papers = [i for i in data["paper_name"]]
+    added_papers = [i["paper_name"] for i in data]
 
-    if r["paper_name"] not in added_papers:
+    if ftrs["paper_name"] not in added_papers:
         data.append(ftrs)
+    elif ftrs["paper_name"] in added_papers:
+        data = replace_data(data, ftrs)
 
     with open('./app/output/data.json', 'w') as outfile:
         json.dump(data, outfile)

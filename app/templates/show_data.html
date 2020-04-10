@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% for k, v in data.items() %}
+        <div class="row">
+            <div class="column" style="background-color:white;">
+                <td>{{ k }}</td>
+            </div>
+            <div class="column" style="background-color:white;">
+                <td>{{ v }}</td>
+            </div>
+        </div>
+    {% endfor %}
+
+    <p><a href="{{ baseurl }}/form/{{ data.paper_name }}">Edit data</a></p>
+    <p><a href="{{ baseurl }}/show">Go back</a></p>
+{% endblock %}
