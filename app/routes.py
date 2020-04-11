@@ -43,7 +43,14 @@ def show_data(filename):
 
     for i in data:
         if i["paper_name"] == filename:
-            asked = i
+            asked = {
+                "Name": i["paper_name"],
+                "Category": i["paper_category"],
+                "Task": i["task_definition"],
+                "Dataset Used": i["dataset_used"],
+                "Method": i["method_definition"],
+                "Brief Summary": i["brief_summary"]
+            }
 
     return render_template("show_data.html", data=asked)
 

@@ -1,3 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Papers with summary added</h2>
+  <b>Please click on the name of paper you wish to revise</b><br /><br />
+    {% if c|length == 0 %}
+      No papers summarised yet! <br/>
+      Have some <strong>shame</strong> and go read papers!!
+    {% endif %}
+
+    {% for each in c %}
+      <b>{{ loop.index }}</b> <a href="{{ baseurl }}/view/{{ each }}">{{ each }}<br /></a>
+    {% endfor %}                
+
+  <br />
+  <h2>Papers without summary added</h2>
+  <b>Please click on the name of paper you wish to summarise</b><br /><br />
+    {% for each in nc %}
+      <b>{{ loop.index }}</b> <a href="{{ baseurl }}/form/{{ each }}">{{ each }}<br /></a>
+    {% endfor %}
+{% endblock %}
+
+
 <!-- <!DOCTYPE html>
 <html>
 <head>
@@ -44,21 +67,18 @@
     </div>
 </body>
 </html> -->
-{% extends "base.html" %}
-
-{% block content %}
-  <div class="row">
-    <div class="column" style="background-color:white;">
-        <h3>Papers with summary added</h3><br />
-        {% for each in c %}
-        <a href="{{ baseurl }}/view/{{ each }}">{{ each }}<br /></a>
-        {% endfor %}                
-    </div>
-    <div class="column" style="background-color:white;">
-        <h3>Papers without summary added</h3><br />
-        {% for each in nc %}
-        <a href="{{ baseurl }}/form/{{ each }}">{{ each }}<br /></a>
-        {% endfor %}
-    </div>
+<!-- <div class="row">
+  <div class="column" style="background-color:white;">
+      <h2>Papers with summary added</h2><br />
+      {% for each in c %}
+        <b>{{ loop.index }}</b> <a href="{{ baseurl }}/view/{{ each }}">{{ each }}<br /></a>
+      {% endfor %}                
   </div>
-{% endblock %}
+  <div class="column" style="background-color:white;">
+      <h2>Papers without summary added</h2><br />
+      {% for each in nc %}
+        <b>{{ loop.index }}</b> <a href="{{ baseurl }}/form/{{ each }}">{{ each }}<br /></a>
+      {% endfor %}
+  </div>
+</div> -->
+
