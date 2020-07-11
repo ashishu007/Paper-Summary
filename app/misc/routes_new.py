@@ -1,42 +1,20 @@
 from app import app
 from flask import render_template, Flask, jsonify, request
 from app.utilities import create_json, replace_data
-from nltk.tokenize import word_tokenize  # to split sentences into words
-from nltk.corpus import stopwords  # to get a list of stopwords
-from collections import Counter  # to get words-frequency
 import os, json
 
 @app.route('/')
 def index():
+
+    '''Function Name: index and Parameters: '''
+
     return render_template("index.html")
-
-@app.route('/cloud', methods=['GET'])
-def word_cloud():
-    with open('./app/output/data.json') as json_file:
-        data = json.load(json_file)
-
-    sentences = ""
-    for paper in data:
-        summary = paper["brief_summary"]
-        method = paper["method_definition"]
-        paper_name = paper["paper_name"]
-        paper_category = paper["paper_category"]
-        task_definition = paper["task_definition"]
-        dataset_used = paper["dataset_used"]
-
-        sentences = "{} {} {} {} {} {} {}".format(sentences, summary, method, paper_name, paper_category, task_definition, dataset_used)
-    
-    sentences = sentences.strip()
-    words = word_tokenize(sentences)
-    stop_words = set(stopwords.words('english'))
-    words = [word for word in words if word not in stop_words and len(word) > 3]
-    words_freq = Counter(words)
-    words_json = [{'text': word, 'weight': count} for word, count in words_freq.items()]
-
-    return json.dumps(words_json)
 
 @app.route('/show', methods=['POST', 'GET'])
 def hello_world():
+
+    '''Function Name: hello_world and Parameters: '''
+
     papers = os.listdir("./app/Papers")
     
     if "data.json" not in os.listdir("./app/output/"):
@@ -61,10 +39,16 @@ def hello_world():
 
 @app.route('/form/<filename>', methods=['POST', 'GET'])
 def show_form(filename):
+
+    '''Function Name: show_form and Parameters: filename'''
+
     return render_template("add_data.html", filename=filename)
 
 @app.route('/view/<filename>', methods=['POST', 'GET'])
 def show_data(filename):
+
+    '''Function Name: show_data and Parameters: filename'''
+
 
     with open('./app/output/data.json') as json_file:
         data = json.load(json_file)
@@ -84,6 +68,9 @@ def show_data(filename):
 
 @app.route('/add', methods=['POST', 'GET'])
 def add_data():
+
+    '''Function Name: add_data and Parameters: '''
+
     if request.method == 'POST':
         result = request.form
         r = result.to_dict(flat=False)
